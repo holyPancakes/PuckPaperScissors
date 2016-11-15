@@ -20,11 +20,12 @@ public class ProjectServer {
 				Socket SOCK = serverSocket.accept();
 				
 				DataInputStream in = new DataInputStream(SOCK.getInputStream());
-				String username = in.readUTF();
+				String[] msgparts = in.readUTF().split(": ", 2);
+				String username = msgparts[0], message = msgparts[1];
 				sockArray.put(SOCK, username);
 				
 				socketArray.add(SOCK);
-				ProjectServerThread chatThread = new ProjectServerThread(SOCK,username);
+				ProjectServerThread chatThread = new ProjectServerThread(SOCK, username, (username+": "+message).toString());
 				chatThread.start();
 				System.out.println("Client Added:" + username +"...");
 				System.out.println("Connected Users:"+socketArray.size());

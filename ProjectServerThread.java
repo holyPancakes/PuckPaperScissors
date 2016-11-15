@@ -11,6 +11,13 @@ public class ProjectServerThread extends Thread {
         this.serverSocket = socket;
         this.username = uname;
     }
+
+    public ProjectServerThread(Socket socket, String uname, String msg) {
+        super("ProjectServerThread");
+        this.serverSocket = socket;
+        this.username = uname;
+        this.msg = msg;
+    }
 	public void run() {
 		try {
 			//accepting connection from client
@@ -18,13 +25,19 @@ public class ProjectServerThread extends Thread {
 			
 			while(!msg.equals("/quit")) {
 				/* Read data from the ClientSocket */
+				for(Socket s : ProjectServer.socketArray) {
+					DataOutputStream out = new DataOutputStream(s.getOutputStream());
+					out.writeUTF(msg+"\n");
+				}
 				DataInputStream in = new DataInputStream(serverSocket.getInputStream());
 				msg=in.readUTF();
 				System.out.println(msg);
+				/*
 				for(Socket s : ProjectServer.socketArray) {
 					DataOutputStream out = new DataOutputStream(s.getOutputStream());
-					out.writeUTF(msg+"\n>>> ");
+					out.writeUTF(msg+"\n");
 				}
+				*/
 			}
 		}
 		catch(SocketTimeoutException s) {
