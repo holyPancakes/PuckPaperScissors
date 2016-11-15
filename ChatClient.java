@@ -10,7 +10,7 @@ public class ChatClient implements KeyListener{
 	JTextField chat;
 
 	String name; 
-	Socket socket;
+	static Socket socket;
 
 
 	public ChatClient(String name, Socket socket){
@@ -81,10 +81,13 @@ public class ChatClient implements KeyListener{
     public static void main(String[] args){
     	try{
     		JFrame j = new JFrame();
-	    	ChatClient client = new ChatClient("JJ", new Socket("127.0.0.1",2000));
+	    	ChatClient client = new ChatClient(args[2], new Socket(args[0], Integer.parseInt(args[1])));
 	    	j.setContentPane(client.workingpanel);
 	    	j.pack();
 	    	j.setVisible(true);
+	    	OutputStream outToServer = socket.getOutputStream();
+		DataOutputStream out = new DataOutputStream(outToServer);
+		out.writeUTF(args[2]);
     	}catch(Exception e){}
     	
 
