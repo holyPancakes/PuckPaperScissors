@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="PPS:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/PPS_jar</output-path>
+    <root id="archive" name="PPS.jar">
+      <element id="module-output" name="PPS" />
+    </root>
+  </artifact>
+</component>
