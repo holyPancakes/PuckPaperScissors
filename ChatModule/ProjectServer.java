@@ -5,7 +5,7 @@ import java.io.*;
 
 public class ProjectServer {
 	
-	boolean listening = true;
+	boolean listening;
 	public static ArrayList<Socket> socketArray = new ArrayList<Socket>();
 	public static ArrayList<String> userNames = new ArrayList<String>();
 	public static ConcurrentHashMap<Socket,String> sockArray = new ConcurrentHashMap<Socket,String>();
